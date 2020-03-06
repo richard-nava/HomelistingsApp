@@ -93,7 +93,7 @@ pageEncoding="UTF-8"%>
                     </div>
                   </div>
                   
-                  <form:form action="Register" modelAttribute="user" method="post" >
+                 <form:form action="Register" modelAttribute="user" method="post" >
                   <h3>
                   <span class="text-success"> ${success}</span>
                   <span class="text-error text-center">${error}</span>
@@ -112,18 +112,18 @@ pageEncoding="UTF-8"%>
                     <div class="controls">
                      <form:input type="text" path="lname" placeholder="Last Name" /> 
                     <p class="has-error">
-						  <form:errors path="lname" class="text-error text-center"/>
-						</p>
-						</div>                    
-                  </div>
+					  <form:errors path="lname" class="text-error text-center"/>
+					</p>
+					</div>                    
+	                  </div>
                   <div class="control-group">
                     <label class="control-label" for="inputText">Email*</label>
                     <div class="controls">
                       <form:input type="hidden" path="id"/>
                       <form:input type="email" path="email" placeholder="Email"/>
                     <p>
-					  <form:errors path="email" class="text-error text-center"/>
-					</p>
+  					<form:errors path="email" class="text-error text-center"/>
+						</p>
                     </div>                    
                   </div>
                   
@@ -142,8 +142,8 @@ pageEncoding="UTF-8"%>
                     <div class="controls">
                      <form:input type="password" path="password2" placeholder="Re-enter Password" /> 
                     <div class="has-error">
-						  <form:errors path="password2" class="text-error"/>
-						</div>
+					  <form:errors path="password2" class="text-error"/>
+					</div>
                     </div>
                     
                   </div>
@@ -157,7 +157,6 @@ pageEncoding="UTF-8"%>
                     
                   </div>
                 </form:form>
-                  
                 </div>
               </div>
             

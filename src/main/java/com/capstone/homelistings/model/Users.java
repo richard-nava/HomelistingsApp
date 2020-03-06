@@ -35,6 +35,7 @@ public class Users {
 	private String phone;
 	private String role;
 	private String image;
+	private String comment;
 	
 	@Transient
 	private String password2; 
@@ -48,9 +49,13 @@ public class Users {
 	public void setImage(String image) {
 		this.image = image;
 	}
-
-
 	
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 	public String getRole() {
 		return role;
 	}
@@ -122,7 +127,7 @@ public class Users {
 	public String toString() {
 		return "Users [id=" + id + ", lname=" + lname + ", fname=" + fname + ", password=" + password + ", email="
 				+ email + ", address=" + address + ", city=" + city + ", state=" + state + ", phone=" + phone
-				+ ", role=" + role + ", image=" + image + ", password2=" + password2 + "]";
+				+ ", role=" + role + ", image=" + image + ", password2=" + password2 + "comment=" + comment+"]";
 	}
 	
 

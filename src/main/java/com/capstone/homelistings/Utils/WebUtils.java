@@ -34,6 +34,7 @@ public class WebUtils {
 	@Autowired
 	HttpServletRequest request;
 	
+	@Autowired
 	private JavaMailSender sender;
 	
 	//private static final Logger logger=LoggerFactory.getLogger("");

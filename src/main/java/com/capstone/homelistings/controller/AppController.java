@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.capstone.homelistings.Utils.WebUtils;
 import com.capstone.homelistings.model.Users;
+import com.capstone.homelistings.repository.UsersRepository;
 
 @Controller
 public class AppController {
@@ -21,13 +22,19 @@ public class AppController {
 	@Autowired
 	private WebUtils webUtils;
 	
+	@Autowired
+	private UsersRepository repo;
+	
 
 	
 	@GetMapping({"/","/index"})
 	String index(Model model) {
 		
-		model.addAttribute("user", new Users());
-		model.addAttribute("msg", "Welcome to the Spring Application");
+		//model.addAttribute("user", new Users());
+		//model.addAttribute("msg", "Welcome to the Spring Application");
+		
+		model.addAttribute("_index", "active");
+		model.addAttribute("comments", repo.findAll());
 		
 		return "index";
 	}

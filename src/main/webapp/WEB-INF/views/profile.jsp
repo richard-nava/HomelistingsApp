@@ -153,11 +153,12 @@ width: 159px; height: 159px; border-radius: 50%;
                
              </div>
                     <div class="tab-pane" id="three">
-                      <form action="" method="post" role="form" class="contactForm">
+                      <form action="addcomment" method="post" role="form" class="contactForm">
               <div class="row">
                 
                 <div class="span7 form-group">
-                  <textarea name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                	<input type="hidden" name="id" value="${loggedInUser.id}">
+                  <textarea name="comment" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Say something meaningful."></textarea>
                   <div class="validation"></div>
                   <div class="text-left">
                     <button class="btn btn-theme btn-medium margintop10" type="submit">Add </button>

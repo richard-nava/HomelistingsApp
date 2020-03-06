@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.capstone.homelistings.Utils.DataValidation;
 import com.capstone.homelistings.Utils.WebUtils;
 import com.capstone.homelistings.model.Users;
 import com.capstone.homelistings.repository.UsersRepository;
@@ -28,26 +30,48 @@ public class LoginController {
 	private UsersRepository repo;
 	
 	@Autowired
+	private DataValidation dataValidation;
+	
+	@Autowired
 	private WebUtils webUtils;
 	
+	/*
+	 * @PostMapping("Register") String oldregister(@ModelAttribute Users user,
+	 * RedirectAttributes redirect) {
+	 * 
+	 * try { Optional<Users> usr = repo.getByEmail(user.getEmail());
+	 * if(usr.isPresent()) {
+	 * 
+	 * redirect.addFlashAttribute("error", "User already exists"); return
+	 * "redirect:/Register"; } repo.save(user); redirect.addFlashAttribute("msg",
+	 * "Registration Successful"); }catch(Exception e) {
+	 * 
+	 * }
+	 * 
+	 * return "redirect:/Login"; }
+	 */
+	
 	@PostMapping("Register")
-	String register(@ModelAttribute Users user, RedirectAttributes redirect) {
+		String register(@ModelAttribute("user") Users user, 
+			BindingResult result, 
+			RedirectAttributes redirect) {
 		
-		try {
-			Optional<Users> usr = repo.getByEmail(user.getEmail());
-			if(usr.isPresent()) {
-				
-				redirect.addFlashAttribute("error", "User already exists");
-				return "redirect:/Register";
-			}
-			repo.save(user);
-			redirect.addFlashAttribute("msg", "Registration Successful");
-		}catch(Exception e) {
-			
-		}
-		
-	return "redirect:/Login";
+				try {
+					dataValidation.validate(user, result);
+					if (result.hasErrors()) {
+					   return "Register";
+					}
+					user.setRole("USER");
+					repo.save(user);
+					redirect.addFlashAttribute("msp", "Registration Successful");
+					} catch (Exception e) {
+					e.printStackTrace();
+					}
+	
+		return "redirect:/Login";
 	}
+
+	
 	
 	@GetMapping("Login")
 	String login() {
@@ -202,6 +226,20 @@ public class LoginController {
 	}
 
 	return "profile";
+	}
+	
+	@PostMapping("addcomment")
+	String addcomment(@RequestParam String comment, @RequestParam Long id, Model model) {
+		
+		
+		repo.findById(id).ifPresent(a->{
+			a.setComment(comment);
+			repo.save(a);
+			model.addAttribute("loggedInuser",a);
+		});
+		
+		model.addAttribute("msg", "Update success");
+		return "profile";
 	}
 	
 	
